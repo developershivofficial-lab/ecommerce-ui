@@ -15,6 +15,7 @@ import {
 } from 'lucide-react';
 import { CartItem } from '../types';
 import { PROMO_CODES } from '../data/products';
+import { getProductUrl } from '../utils/slug';
 
 interface CartPageProps {
   cart: CartItem[];
@@ -155,7 +156,7 @@ export const CartPage: React.FC<CartPageProps> = ({
                   {/* Thumbnail and Title */}
                   <div className="flex items-center gap-4 flex-1">
                     <Link
-                      to={`/product/${item.product.id}`}
+                      to={getProductUrl(item.product)}
                       className="w-20 h-20 sm:w-24 sm:h-24 rounded-2xl overflow-hidden bg-zinc-50 border border-yellow-200/80 shrink-0 block"
                     >
                       <img
@@ -170,7 +171,7 @@ export const CartPage: React.FC<CartPageProps> = ({
                         {item.product.category}
                       </span>
                       <Link
-                        to={`/product/${item.product.id}`}
+                        to={getProductUrl(item.product)}
                         className="block font-bold text-sm sm:text-base text-zinc-900 hover:text-amber-600 transition-colors truncate"
                       >
                         {item.product.name}

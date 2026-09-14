@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { Heart, ShoppingBag, Trash2, ArrowLeft, ArrowRight } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 import { Product } from '../types';
+import { getProductUrl } from '../utils/slug';
 
 interface WishlistPageProps {
   wishlist: Product[];
@@ -73,7 +74,7 @@ export const WishlistPage: React.FC<WishlistPageProps> = ({
               className="bg-white rounded-3xl border border-yellow-100 hover:border-amber-300 shadow-xs hover:shadow-lg transition-all overflow-hidden flex flex-col justify-between"
             >
               <div className="relative aspect-[4/3.8] bg-zinc-50 overflow-hidden">
-                <Link to={`/product/${product.id}`} className="block w-full h-full">
+                <Link to={getProductUrl(product)} className="block w-full h-full">
                   <img
                     src={product.images[0]}
                     alt={product.name}
@@ -95,7 +96,7 @@ export const WishlistPage: React.FC<WishlistPageProps> = ({
                     {product.category}
                   </span>
                   <Link
-                    to={`/product/${product.id}`}
+                    to={getProductUrl(product)}
                     className="block font-bold text-sm text-zinc-900 hover:text-amber-600 transition-colors line-clamp-1 mt-0.5"
                   >
                     {product.name}

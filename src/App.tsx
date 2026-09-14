@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Routes, Route, Navigate, useNavigate } from 'react-router-dom';
+import { Routes, Route, Navigate, useNavigate, useLocation } from 'react-router-dom';
 
 import { Product, CartItem, FilterState, ToastMessage, OrderDetails } from './types';
 import { INITIAL_PRODUCTS, PROMO_CODES } from './data/products';
@@ -9,18 +9,18 @@ import { Navbar } from './components/Navbar';
 import { Footer } from './components/Footer';
 import { ToastContainer } from './components/Toast';
 import { SearchModal } from './components/SearchModal';
-import { ProductDetailModal } from './components/ProductDetailModal';
 
 import { HomePage } from './pages/HomePage';
 import { ProductDetailPage } from './pages/ProductDetailPage';
 import { CartPage } from './pages/CartPage';
 import { CheckoutPage } from './pages/CheckoutPage';
 import { WishlistPage } from './pages/WishlistPage';
-import { CategoryPage } from './pages/CategoryPage';
 import { OrderConfirmationPage } from './pages/OrderConfirmationPage';
+import { getProductUrl } from './utils/slug';
 
 export default function App() {
   const navigate = useNavigate();
+  const location = useLocation();
   const [products] = useState<Product[]>(INITIAL_PRODUCTS);
 
   // Cart State with LocalStorage Persistence
@@ -57,9 +57,17 @@ export default function App() {
     sortBy: 'featured'
   });
 
+  // Sync category filter with URL query parameter ?category=...
+  useEffect(() => {
+    const params = new URLSearchParams(location.search);
+    const cat = params.get('category');
+    if (cat) {
+      setFilter((prev) => ({ ...prev, category: cat }));
+    }
+  }, [location.search]);
+
   // Modal States
   const [isSearchOpen, setIsSearchOpen] = useState(false);
-  const [quickViewProduct, setQuickViewProduct] = useState<Product | null>(null);
   const [lastOrder, setLastOrder] = useState<OrderDetails | null>(null);
 
   // Notifications / Toasts
@@ -179,7 +187,6 @@ export default function App() {
   // Buy Now: direct navigation to Checkout
   const handleBuyNow = (product: Product, quantity = 1, color?: string) => {
     handleAddToCart(product, quantity, color);
-    setQuickViewProduct(null);
     navigate('/checkout');
   };
 
@@ -239,6 +246,16 @@ export default function App() {
         cartTotal={grandTotal}
         wishlistCount={wishlist.length}
         onOpenSearch={() => setIsSearchOpen(true)}
+        activeCategory={filter.category}
+        onSelectCategory={(cat) => {
+          setFilter((prev) => ({ ...prev, category: cat }));
+          if (location.pathname !== '/') {
+            navigate(`/?category=${encodeURIComponent(cat)}#catalog-section`);
+          } else {
+            const el = document.getElementById('catalog-section');
+            if (el) el.scrollIntoView({ behavior: 'smooth' });
+          }
+        }}
       />
 
       {/* Multi-Page Routes */}
@@ -266,14 +283,14 @@ export default function App() {
                 }
                 onToggleWishlist={handleToggleWishlist}
                 onAddToCart={(p) => handleAddToCart(p, 1)}
-                onQuickView={(p) => setQuickViewProduct(p)}
+                onQuickView={(p) => navigate(getProductUrl(p))}
               />
             }
           />
 
-          {/* Individual Product Detail Page (/product/:id) */}
+          {/* Individual Product Detail Page - Slug or ID Format (/product/:slug) */}
           <Route
-            path="/product/:id"
+            path="/product/:slug"
             element={
               <ProductDetailPage
                 products={products}
@@ -327,19 +344,8 @@ export default function App() {
             }
           />
 
-          {/* Dedicated Category Page (/category/:categoryName) */}
-          <Route
-            path="/category/:categoryName"
-            element={
-              <CategoryPage
-                products={products}
-                wishlist={wishlist}
-                onToggleWishlist={handleToggleWishlist}
-                onAddToCart={(p) => handleAddToCart(p, 1)}
-                onQuickView={(p) => setQuickViewProduct(p)}
-              />
-            }
-          />
+          {/* Category Route fallback: Redirect to Home with filter */}
+          <Route path="/category/:categoryName" element={<Navigate to="/" replace />} />
 
           {/* Dedicated Order Confirmation Page (/order-confirmation/:orderId) */}
           <Route
@@ -347,21 +353,24 @@ export default function App() {
             element={<OrderConfirmationPage lastOrder={lastOrder} />}
           />
 
+          {/* Support /product-:slug or any direct product link */}
+          <Route
+            path="/:productSlug"
+            element={
+              <ProductDetailPage
+                products={products}
+                wishlist={wishlist}
+                onToggleWishlist={handleToggleWishlist}
+                onAddToCart={(p, qty, clr) => handleAddToCart(p, qty, clr)}
+                onBuyNow={(p, qty, clr) => handleBuyNow(p, qty, clr)}
+              />
+            }
+          />
+
           {/* Fallback redirect to Home */}
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
       </div>
-
-      {/* Global Quick View Product Modal */}
-      <ProductDetailModal
-        product={quickViewProduct}
-        isOpen={Boolean(quickViewProduct)}
-        onClose={() => setQuickViewProduct(null)}
-        isWishlisted={Boolean(quickViewProduct && wishlist.some((w) => w.id === quickViewProduct.id))}
-        onToggleWishlist={handleToggleWishlist}
-        onAddToCartWithOptions={handleAddToCart}
-        onBuyNow={handleBuyNow}
-      />
 
       {/* Global Live Search Overlay (⌘K) */}
       <SearchModal
@@ -370,7 +379,7 @@ export default function App() {
         products={products}
         onSelectProduct={(p) => {
           setIsSearchOpen(false);
-          navigate(`/product/${p.id}`);
+          navigate(getProductUrl(p));
         }}
         onAddToCart={(p) => handleAddToCart(p, 1)}
       />
