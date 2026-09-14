@@ -138,11 +138,7 @@ export const AuthModal: React.FC<AuthModalProps> = ({ onSuccessToast }) => {
     if (res.success) {
       setSignupStep(2);
       setResendCooldown(60);
-      if (res.previewOtp) {
-        setOtpNotice(res.message);
-      } else {
-        setOtpNotice(null);
-      }
+      setOtpNotice(res.message || 'Verification code sent to your email.');
     } else {
       setErrorMessage(res.message || 'Could not send verification email. Please retry.');
     }
@@ -166,7 +162,7 @@ export const AuthModal: React.FC<AuthModalProps> = ({ onSuccessToast }) => {
     if (res.success) {
       setSignupStep(3);
     } else {
-      setErrorMessage(res.message || 'Invalid verification code. Please check and try again.');
+      setErrorMessage(res.message || 'Invalid verification code. Please check your email and try again.');
     }
   };
 
@@ -181,11 +177,9 @@ export const AuthModal: React.FC<AuthModalProps> = ({ onSuccessToast }) => {
 
     if (res.success) {
       setResendCooldown(60);
-      if (res.previewOtp) {
-        setOtpNotice(res.message);
-      }
+      setOtpNotice(res.message || 'New verification code sent to your email.');
     } else {
-      setErrorMessage(res.message);
+      setErrorMessage(res.message || 'Failed to resend code.');
     }
   };
 
@@ -255,10 +249,10 @@ export const AuthModal: React.FC<AuthModalProps> = ({ onSuccessToast }) => {
         const res = await sendEmailOtp(signInEmail);
         setIsLoading(false);
         if (res.success) {
-          setOtpNotice(res.message);
+          setOtpNotice(res.message || 'Verification code sent to your email.');
           setResendCooldown(60);
         } else {
-          setErrorMessage(res.message);
+          setErrorMessage(res.message || 'Failed to send verification code.');
         }
         return;
       }
@@ -548,6 +542,9 @@ export const AuthModal: React.FC<AuthModalProps> = ({ onSuccessToast }) => {
                 </h3>
                 <p className="text-xs text-zinc-600 mt-1">
                   We have sent a 6-digit OTP to <strong className="text-zinc-900">{email}</strong> via Brevo.
+                </p>
+                <p className="text-[11px] text-amber-800/80 mt-1 font-medium">
+                  Please check your inbox (and Spam or Promotions folder if not in Inbox).
                 </p>
               </div>
 

@@ -147,37 +147,28 @@ app.post('/api/auth/send-verification-email', async (req: Request, res: Response
           console.log(`[Brevo API] Email sent to ${normalizedEmail}, messageId:`, (data as any)?.messageId);
           return res.json({
             success: true,
-            message: `Verification code sent to ${normalizedEmail} via Brevo.`,
+            message: `Verification code sent to ${normalizedEmail}. Please check your email inbox (and spam/promotions folder).`,
             isLiveBrevo: true
           });
         } else {
           const errData = await response.json().catch(() => ({}));
-          console.warn('[Brevo API Warning]', errData);
-          // Return simulated fallback with clear note so user flow is never blocked
-          return res.json({
-            success: true,
-            simulated: true,
-            previewOtp: code,
-            message: `Verification code generated. (Brevo response: ${(errData as any)?.message || 'Check sender verification'}). For preview testing, code is ${code}.`
+          console.error('[Brevo API Error]', errData);
+          return res.status(500).json({
+            success: false,
+            message: `Brevo email sending failed: ${(errData as any)?.message || 'Unable to deliver message'}.`
           });
         }
       } catch (brevoErr: any) {
         console.error('[Brevo Error]', brevoErr);
-        return res.json({
-          success: true,
-          simulated: true,
-          previewOtp: code,
-          message: `Verification code generated. Code is ${code}. (Brevo API error: ${brevoErr.message})`
+        return res.status(500).json({
+          success: false,
+          message: `Brevo connection error: ${brevoErr.message || 'Please try again later'}.`
         });
       }
     } else {
-      // Brevo API Key not configured yet: provide instant preview OTP so user can test seamlessly
-      console.log(`[Dev Simulation] Brevo API key pending. Verification code for ${normalizedEmail} is: ${code}`);
-      return res.json({
-        success: true,
-        simulated: true,
-        previewOtp: code,
-        message: `Verification code sent! (BREVO_API_KEY pending in environment variables. For instant testing, your code is: ${code})`
+      return res.status(500).json({
+        success: false,
+        message: 'BREVO_API_KEY is missing. Please configure your Brevo API key in the environment.'
       });
     }
   } catch (error: any) {

@@ -74,68 +74,60 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
   // Brevo API: Send OTP to user email
   const sendEmailOtp = async (email: string, name?: string): Promise<SendOtpResponse> => {
+    const cleanEmail = (email || '').trim().toLowerCase();
+
     try {
       const res = await fetch('/api/auth/send-verification-email', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email: email.trim().toLowerCase(), name })
-      });
-
-      if (!res.ok) {
-        const err = await res.json().catch(() => ({}));
-        return {
-          success: false,
-          message: err.message || 'Failed to send verification code. Please check your email format.'
-        };
-      }
-
-      const data = await res.json();
-      return data;
-    } catch (err: any) {
-      console.warn('Brevo API network error, using fallback:', err);
-      // Generate a client fallback code in emergency offline mode
-      const fallbackOtp = Math.floor(100000 + Math.random() * 900000).toString();
-      sessionStorage.setItem(`offline_otp_${email.toLowerCase()}`, fallbackOtp);
-      return {
-        success: true,
-        simulated: true,
-        previewOtp: fallbackOtp,
-        message: `Offline mode: verification code generated (${fallbackOtp}).`
-      };
-    }
-  };
-
-  // Brevo API: Verify OTP
-  const verifyEmailOtp = async (email: string, otp: string): Promise<VerifyOtpResponse> => {
-    try {
-      const res = await fetch('/api/auth/verify-otp', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email: email.trim().toLowerCase(), otp: otp.trim() })
+        body: JSON.stringify({ email: cleanEmail, name })
       });
 
       const data = await res.json().catch(() => ({}));
 
       if (!res.ok) {
-        // Check offline fallback if server was unavailable
-        const offlineCode = sessionStorage.getItem(`offline_otp_${email.toLowerCase()}`);
-        if (offlineCode && offlineCode === otp.trim()) {
-          sessionStorage.removeItem(`offline_otp_${email.toLowerCase()}`);
-          return { success: true, verified: true, message: 'Email verified successfully!' };
-        }
         return {
           success: false,
-          message: data.message || 'Invalid or expired verification code.'
+          message: data.message || 'Unable to send verification email. Please check your internet connection and try again.'
+        };
+      }
+
+      return {
+        success: true,
+        message: data.message || `Verification code sent to ${cleanEmail}. Please check your inbox and spam folder.`
+      };
+    } catch (err: any) {
+      console.error('Brevo API request failed:', err);
+      return {
+        success: false,
+        message: 'Could not connect to the email server. Please check your network and try again.'
+      };
+    }
+  };
+
+  // Brevo API: Verify OTP (User MUST enter the exact code sent to their email)
+  const verifyEmailOtp = async (email: string, otp: string): Promise<VerifyOtpResponse> => {
+    const cleanEmail = (email || '').trim().toLowerCase();
+    const cleanOtp = (otp || '').trim();
+
+    try {
+      const res = await fetch('/api/auth/verify-otp', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email: cleanEmail, otp: cleanOtp })
+      });
+
+      const data = await res.json().catch(() => ({}));
+
+      if (!res.ok) {
+        return {
+          success: false,
+          message: data.message || 'Incorrect verification code. Please check the code in your email and try again.'
         };
       }
 
       return data;
     } catch (err) {
-      const offlineCode = sessionStorage.getItem(`offline_otp_${email.toLowerCase()}`);
-      if (offlineCode && offlineCode === otp.trim()) {
-        sessionStorage.removeItem(`offline_otp_${email.toLowerCase()}`);
-        return { success: true, verified: true, message: 'Email verified successfully!' };
-      }
       return {
         success: false,
         message: 'Could not connect to verification server. Please try again.'
