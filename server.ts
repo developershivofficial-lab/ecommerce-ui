@@ -1,4 +1,5 @@
-import express, { Request, Response } from 'express';
+import express from 'express';
+import type { Request, Response } from 'express';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import { createServer as createViteServer } from 'vite';
@@ -6,13 +7,32 @@ import dotenv from 'dotenv';
 
 dotenv.config();
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
+let appDir = process.cwd();
+try {
+  if (typeof import.meta !== 'undefined' && import.meta.url) {
+    const filename = fileURLToPath(import.meta.url);
+    appDir = path.dirname(filename);
+  }
+} catch {
+  // Fallback to process.cwd() in CommonJS bundle
+}
 
 const app = express();
 const PORT = 3000;
 
+// CORS & Preflight handler
+app.use((req, res, next) => {
+  res.header('Access-Control-Allow-Origin', '*');
+  res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
+  res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Authorization');
+  if (req.method === 'OPTIONS') {
+    return res.sendStatus(200);
+  }
+  next();
+});
+
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
 // In-memory store for OTPs (with timestamp and attempts)
 interface StoredOtp {
@@ -44,7 +64,7 @@ app.get('/api/auth/brevo-status', (req: Request, res: Response) => {
 });
 
 // Send Verification Email via Brevo (brevo.com)
-app.post('/api/auth/send-verification-email', async (req: Request, res: Response) => {
+app.post(['/api/auth/send-verification-email', '/api/auth/send-verification-email/'], async (req: Request, res: Response) => {
   try {
     const { email, name } = req.body;
 
@@ -183,7 +203,7 @@ app.post('/api/auth/send-verification-email', async (req: Request, res: Response
 });
 
 // Verify OTP
-app.post('/api/auth/verify-otp', (req: Request, res: Response) => {
+app.post(['/api/auth/verify-otp', '/api/auth/verify-otp/'], (req: Request, res: Response) => {
   try {
     const { email, otp } = req.body;
 
