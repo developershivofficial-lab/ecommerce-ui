@@ -72,8 +72,10 @@ app.post('/api/auth/send-verification-email', async (req: Request, res: Response
     });
 
     const brevoApiKey = process.env.BREVO_API_KEY;
-    const senderEmail = process.env.BREVO_SENDER_EMAIL || 'no-reply@gopalbags.com';
+    const senderEmail = process.env.BREVO_SENDER_EMAIL || 'auth@gopalbag.com';
     const recipientName = name ? name.trim() : 'Valued Customer';
+
+    console.log(`[Auth] Dispatching verification OTP for ${normalizedEmail} using sender ${senderEmail}`);
 
     // If Brevo API Key is present, send actual transactional email via Brevo API
     if (brevoApiKey && brevoApiKey.trim() !== '' && !brevoApiKey.startsWith('MY_')) {

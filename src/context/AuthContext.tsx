@@ -72,35 +72,52 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     setIsAuthModalOpen(false);
   };
 
-  // Brevo API: Send OTP to user email
+  // Brevo API: Send OTP to user email with automatic resilience
   const sendEmailOtp = async (email: string, name?: string): Promise<SendOtpResponse> => {
     const cleanEmail = (email || '').trim().toLowerCase();
 
-    try {
-      const res = await fetch('/api/auth/send-verification-email', {
+    const doFetch = async () => {
+      return await fetch('/api/auth/send-verification-email', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email: cleanEmail, name })
       });
+    };
+
+    try {
+      let res: Response;
+      try {
+        res = await doFetch();
+      } catch {
+        // If there was a momentary connection glitch, wait 800ms and retry once
+        await new Promise((r) => setTimeout(r, 800));
+        res = await doFetch();
+      }
+
+      // If server returned a proxy 502/503 during restart, retry once
+      if (res.status === 502 || res.status === 503 || res.status === 504) {
+        await new Promise((r) => setTimeout(r, 1000));
+        res = await doFetch();
+      }
 
       const data = await res.json().catch(() => ({}));
 
       if (!res.ok) {
         return {
           success: false,
-          message: data.message || 'Unable to send verification email. Please check your internet connection and try again.'
+          message: data.message || `Server status: ${res.status}. Please click "Resend" or retry in a moment.`
         };
       }
 
       return {
         success: true,
-        message: data.message || `Verification code sent to ${cleanEmail}. Please check your inbox and spam folder.`
+        message: data.message || `Verification code sent to ${cleanEmail}. Please check your email inbox and spam folder.`
       };
     } catch (err: any) {
-      console.error('Brevo API request failed:', err);
+      console.error('Brevo API request failed after retry:', err);
       return {
         success: false,
-        message: 'Could not connect to the email server. Please check your network and try again.'
+        message: 'Could not communicate with the email service. Please click again to retry.'
       };
     }
   };
@@ -110,12 +127,22 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     const cleanEmail = (email || '').trim().toLowerCase();
     const cleanOtp = (otp || '').trim();
 
-    try {
-      const res = await fetch('/api/auth/verify-otp', {
+    const doVerify = async () => {
+      return await fetch('/api/auth/verify-otp', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email: cleanEmail, otp: cleanOtp })
       });
+    };
+
+    try {
+      let res: Response;
+      try {
+        res = await doVerify();
+      } catch {
+        await new Promise((r) => setTimeout(r, 800));
+        res = await doVerify();
+      }
 
       const data = await res.json().catch(() => ({}));
 
@@ -130,7 +157,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     } catch (err) {
       return {
         success: false,
-        message: 'Could not connect to verification server. Please try again.'
+        message: 'Verification request failed. Please check your code and try again.'
       };
     }
   };
