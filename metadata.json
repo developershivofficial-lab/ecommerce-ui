@@ -1,0 +1,6 @@
+{
+  "name": "Solara E-Commerce",
+  "description": "Modern, fully animated e-commerce storefront in a vibrant yellow and white light theme, featuring live search, smart category filters, and a seamless checkout experience.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
