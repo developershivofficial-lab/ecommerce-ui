@@ -29,14 +29,15 @@ export const SearchModal: React.FC<SearchModalProps> = ({
     }
   }, [isOpen]);
 
-  const trendingTerms = ['Earbuds', 'Watch', 'Hoodie', 'Sneakers', 'Lamp', 'Projector'];
+  const trendingTerms = ['Bridal Clutches', 'Handbag', 'Tote Bag', 'Velvet Potli', 'Sling Bag', 'Gold Clutch'];
 
   const filtered = query.trim()
     ? products.filter(
         (p) =>
           p.name.toLowerCase().includes(query.toLowerCase()) ||
           p.category.toLowerCase().includes(query.toLowerCase()) ||
-          p.description.toLowerCase().includes(query.toLowerCase())
+          p.description.toLowerCase().includes(query.toLowerCase()) ||
+          (p.material && p.material.toLowerCase().includes(query.toLowerCase()))
       )
     : [];
 
@@ -68,7 +69,7 @@ export const SearchModal: React.FC<SearchModalProps> = ({
                 type="text"
                 value={query}
                 onChange={(e) => setQuery(e.target.value)}
-                placeholder="Search products by name, category, or features... (e.g. Earbuds)"
+                placeholder="Search Gopal Bags by name, material, or category... (e.g. Clutches, Handbags)"
                 className="w-full bg-transparent text-zinc-900 placeholder:text-zinc-400 text-base sm:text-lg focus:outline-none"
               />
               {query && (

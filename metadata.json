@@ -1,6 +1,6 @@
 {
-  "name": "Solara E-Commerce",
-  "description": "Modern, fully animated e-commerce storefront in a vibrant yellow and white light theme, featuring live search, smart category filters, and a seamless checkout experience.",
+  "name": "Gopal Bags",
+  "description": "Premium handcrafted women handbags, bridal & party clutches, designer tote bags, and everyday slings in a clean yellow and white luxury aesthetic.",
   "requestFramePermissions": [],
   "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
 }

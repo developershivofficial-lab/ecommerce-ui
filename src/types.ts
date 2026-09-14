@@ -1,15 +1,17 @@
 export interface Product {
   id: string;
   name: string;
-  category: 'Electronics' | 'Fashion' | 'Audio' | 'Home' | 'Footwear' | 'Accessories';
+  category: 'Handbags' | 'Clutches' | 'Tote Bags' | 'Sling Bags' | 'Wallets';
   price: number;
   originalPrice?: number;
   rating: number;
   reviewCount: number;
   inStock: boolean;
   stockCount: number;
-  badge?: 'Trending' | 'Best Seller' | 'New' | '20% OFF' | 'Hot Deal';
+  badge?: 'Trending' | 'Bestseller' | 'New Arrival' | 'Handcrafted' | 'Hot Deal' | 'Festive Pick';
   description: string;
+  material?: string;
+  dimensions?: string;
   features: string[];
   colors?: { name: string; hex: string }[];
   sizes?: string[];

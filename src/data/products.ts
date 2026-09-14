@@ -3,354 +3,378 @@ import { Product } from '../types';
 export const INITIAL_PRODUCTS: Product[] = [
   {
     id: 'prod-1',
-    name: 'AuraPods Pro Wireless Earbuds',
-    category: 'Audio',
-    price: 3499,
-    originalPrice: 4999,
-    rating: 4.8,
-    reviewCount: 428,
+    name: 'Gopal Regal Golden Sateen Party Clutch',
+    category: 'Clutches',
+    price: 1899,
+    originalPrice: 2799,
+    rating: 4.9,
+    reviewCount: 384,
     inStock: true,
-    stockCount: 14,
-    badge: 'Best Seller',
-    description: 'Ultra-low latency noise cancelling wireless earbuds with rich bass, spatial audio calibration, and 36-hour battery backup with fast wireless charging.',
+    stockCount: 16,
+    badge: 'Bestseller',
+    description: 'An exquisite hand-embellished evening clutch framed in polished golden brass hardware with a detachable woven serpent chain. Crafted specifically for weddings, sangeet, and festive celebrations.',
+    material: 'Rich Dupion Silk with Zari Embellishment & Brass Hardware',
+    dimensions: '20 cm x 12 cm x 5 cm',
     features: [
-      'Active Noise Cancellation (ANC) up to 38dB',
-      'Transparency Mode with dual environmental mic',
-      'IPX5 sweat and water resistance',
-      'Instant Bluetooth 5.3 pairing with dual-device switch'
+      'Handcrafted zari and metallic sequins embroidery',
+      'Sturdy magnetic snap clasp closure',
+      'Detachable 120 cm golden brass crossbody chain',
+      'Velvet lined interior with dedicated card and lipstick slot'
     ],
     colors: [
-      { name: 'Pure White', hex: '#FFFFFF' },
-      { name: 'Canary Yellow', hex: '#FACC15' },
-      { name: 'Matte Obsidian', hex: '#1E293B' }
+      { name: 'Royal Gold', hex: '#EAB308' },
+      { name: 'Ivory Pearl', hex: '#FEFCE8' },
+      { name: 'Midnight Black', hex: '#18181B' }
     ],
     images: [
-      'https://images.unsplash.com/photo-1590658268037-6bf12165a8df?auto=format&fit=crop&w=800&q=80',
-      'https://images.unsplash.com/photo-1606220588913-b3aacb4d2f46?auto=format&fit=crop&w=800&q=80',
-      'https://images.unsplash.com/photo-1572536147248-ac59a8abfa4b?auto=format&fit=crop&w=800&q=80'
+      'https://images.unsplash.com/photo-1566150905458-1bf1fc113f0d?auto=format&fit=crop&w=900&q=80',
+      'https://images.unsplash.com/photo-1544816155-12df9643f363?auto=format&fit=crop&w=900&q=80',
+      'https://images.unsplash.com/photo-1584917865442-de89df76afd3?auto=format&fit=crop&w=900&q=80'
     ]
   },
   {
     id: 'prod-2',
-    name: 'Solara Studio Chronograph Watch',
-    category: 'Accessories',
-    price: 5999,
-    originalPrice: 8499,
-    rating: 4.9,
-    reviewCount: 312,
+    name: 'Aura Saffiano Structured Handbag',
+    category: 'Handbags',
+    price: 2999,
+    originalPrice: 4299,
+    rating: 4.8,
+    reviewCount: 512,
     inStock: true,
-    stockCount: 8,
-    badge: 'Trending',
-    description: 'Precision Japanese quartz movement timepiece encased in brushed surgical stainless steel with scratch-resistant sapphire crystal and genuine Italian leather strap.',
+    stockCount: 12,
+    badge: 'Bestseller',
+    description: 'A timeless silhouette designed for modern women. Engineered with scratch-resistant Saffiano textured vegan leather, sturdy rolled top handles, and protective golden metal bottom feet.',
+    material: 'High-Grade Saffiano Vegan Leather',
+    dimensions: '31 cm x 24 cm x 13 cm',
     features: [
-      'Sapphire Crystal Scratch-Proof Glass',
-      '50-meter water resistance (5 ATM)',
-      'Sub-dial 24-hour chronograph & date window',
-      'Interchangeable quick-release leather strap'
+      'Triple compartment layout with central zippered divider',
+      'Reinforced rolled vegan leather handles (14 cm drop)',
+      'Adjustable and detachable matching shoulder strap',
+      'Golden metallic studs at base to prevent scratches'
     ],
     colors: [
-      { name: 'Honey Amber Gold', hex: '#EAB308' },
-      { name: 'Silver Steel', hex: '#E2E8F0' },
-      { name: 'Midnight Charcoal', hex: '#0F172A' }
+      { name: 'Sun Mustard', hex: '#CA8A04' },
+      { name: 'Pure White & Gold', hex: '#FFFFFF' },
+      { name: 'Classic Black', hex: '#18181B' }
     ],
     images: [
-      'https://images.unsplash.com/photo-1523275335684-37898b6baf30?auto=format&fit=crop&w=800&q=80',
-      'https://images.unsplash.com/photo-1524805444758-089113d48a6d?auto=format&fit=crop&w=800&q=80',
-      'https://images.unsplash.com/photo-1533139502658-0198f920d8e8?auto=format&fit=crop&w=800&q=80'
+      'https://images.unsplash.com/photo-1584917865442-de89df76afd3?auto=format&fit=crop&w=900&q=80',
+      'https://images.unsplash.com/photo-1590874103328-eac38a683ce7?auto=format&fit=crop&w=900&q=80',
+      'https://images.unsplash.com/photo-1548036328-c9fa89d128fa?auto=format&fit=crop&w=900&q=80'
     ]
   },
   {
     id: 'prod-3',
-    name: 'Oversized Heavyweight Sunny Hoodie',
-    category: 'Fashion',
+    name: 'Marigold Blossom Embroidered Bridal Box Clutch',
+    category: 'Clutches',
     price: 2499,
-    originalPrice: 3299,
-    rating: 4.7,
-    reviewCount: 198,
+    originalPrice: 3499,
+    rating: 4.9,
+    reviewCount: 290,
     inStock: true,
-    stockCount: 22,
-    badge: 'Hot Deal',
-    description: 'Custom relaxed streetwear drop-shoulder silhouette woven from 420 GSM French Terry organic cotton. Ultra-soft brushed fleece interior designed for all-season comfort.',
+    stockCount: 9,
+    badge: 'Handcrafted',
+    description: 'Artisanal bridal hard-box clutch embellished with intricate floral thread-work, pearls, and gold-finish metal lock closure. Pairs seamlessly with lehengas, sarees, and cocktail dresses.',
+    material: 'Embroidered Raw Silk & Hard Alloy Shell',
+    dimensions: '18 cm x 11 cm x 5.5 cm',
     features: [
-      '420 GSM 100% combed organic ring-spun cotton',
-      'Double-lined structured hood with hidden drawstring',
-      'Pre-shrunk fabric to prevent post-wash shrinking',
-      'High-density ribbed cuffs and waist hem'
+      'Hand-sewn micro-pearls and golden thread motifs',
+      'Smooth push-lock gemstone clasp',
+      'Includes detachable golden link snake chain',
+      'Spacious enough to comfortably hold iPhone Pro Max & makeup essentials'
     ],
-    sizes: ['S', 'M', 'L', 'XL', 'XXL'],
     colors: [
-      { name: 'Warm Cream White', hex: '#FEFCE8' },
-      { name: 'Mustard Sun', hex: '#EAB308' },
-      { name: 'Slate Gray', hex: '#64748B' }
+      { name: 'Sunbeam Gold', hex: '#FACC15' },
+      { name: 'Bridal Crimson', hex: '#991B1B' },
+      { name: 'Pastel Peach Cream', hex: '#FEF08A' }
     ],
     images: [
-      'https://images.unsplash.com/photo-1556905055-8f358a7a47b2?auto=format&fit=crop&w=800&q=80',
-      'https://images.unsplash.com/photo-1509967419530-da38b4704bc6?auto=format&fit=crop&w=800&q=80',
-      'https://images.unsplash.com/photo-1578587018452-892bacefd3f2?auto=format&fit=crop&w=800&q=80'
+      'https://images.unsplash.com/photo-1544816155-12df9643f363?auto=format&fit=crop&w=900&q=80',
+      'https://images.unsplash.com/photo-1566150905458-1bf1fc113f0d?auto=format&fit=crop&w=900&q=80'
     ]
   },
   {
     id: 'prod-4',
-    name: 'HyperGlide Aerodynamic Sneakers',
-    category: 'Footwear',
-    price: 4799,
-    originalPrice: 6999,
-    rating: 4.9,
-    reviewCount: 564,
+    name: 'Classic Parisian Vegan Leather Tote Bag',
+    category: 'Tote Bags',
+    price: 3199,
+    originalPrice: 4499,
+    rating: 4.8,
+    reviewCount: 420,
     inStock: true,
-    stockCount: 11,
-    badge: '20% OFF',
-    description: 'Engineered breathable mesh upper with responsive nitrogen-infused foam midsole. Delivers cloud-like energy return whether running city miles or casual walking.',
+    stockCount: 14,
+    badge: 'Trending',
+    description: 'The quintessential everyday luxury tote. Accommodates up to a 14-inch laptop alongside books, cosmetics, and your daily essentials in effortless elegance.',
+    material: 'Premium Pebble-Grain Vegan Leather',
+    dimensions: '38 cm x 29 cm x 14 cm',
     features: [
-      'Nitrogen-infused cloud cushioning outsole',
-      'Adaptive knit collar for frictionless ankle fit',
-      'Reflective luminous heel accents for night visibility',
-      'High-traction directional rubber waffle outsole'
+      'Padded interior compartment fits up to 14" laptop / iPad',
+      'Comfortable shoulder drop length with double-stitched joints',
+      'Smooth Japanese YKK metal zip closure',
+      'Includes complimentary matching zippered pouch'
     ],
-    sizes: ['UK 7', 'UK 8', 'UK 9', 'UK 10', 'UK 11'],
     colors: [
-      { name: 'Solar Yellow & White', hex: '#FACC15' },
+      { name: 'Warm Tan Gold', hex: '#D97706' },
       { name: 'Chalk White', hex: '#F8FAFC' },
-      { name: 'Carbon Stealth', hex: '#18181B' }
+      { name: 'Coal Black', hex: '#18181B' }
     ],
     images: [
-      'https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=800&q=80',
-      'https://images.unsplash.com/photo-1608231387042-66d1773070a5?auto=format&fit=crop&w=800&q=80',
-      'https://images.unsplash.com/photo-1595950653106-6c9ebd614d3a?auto=format&fit=crop&w=800&q=80'
+      'https://images.unsplash.com/photo-1590874103328-eac38a683ce7?auto=format&fit=crop&w=900&q=80',
+      'https://images.unsplash.com/photo-1544816155-12df9643f363?auto=format&fit=crop&w=900&q=80'
     ]
   },
   {
     id: 'prod-5',
-    name: 'Minimalist Nordic Warm Glow Desk Lamp',
-    category: 'Home',
-    price: 2199,
-    originalPrice: 2999,
-    rating: 4.6,
-    reviewCount: 142,
+    name: 'Sunset Mustard Quilted Crossbody Sling',
+    category: 'Sling Bags',
+    price: 1799,
+    originalPrice: 2499,
+    rating: 4.7,
+    reviewCount: 265,
     inStock: true,
-    stockCount: 19,
-    badge: 'New',
-    description: 'Sculptural matte aluminum reading lamp with 3 touch-dimming color temperatures (3000K-6500K) and integrated 15W Qi wireless fast charging pad on the solid beech wood base.',
+    stockCount: 20,
+    badge: 'New Arrival',
+    description: 'Chevron quilted sling with plush cushioned touch, high-polish golden turn-lock clasp, and interwoven leather-chain crossbody strap. Compact yet remarkably roomy.',
+    material: 'Plush Quilted Microfiber Vegan Leather',
+    dimensions: '22 cm x 15 cm x 7 cm',
     features: [
-      'Stepless dimming with warm sun mood presets',
-      'Built-in 15W Qi wireless fast smartphone charger',
-      'Flicker-free eye protection diffusion plate',
-      '90-degree adjustable articulated aluminum arm'
+      'Signature chevron diamond quilting pattern',
+      'Luxurious interlocking turn-lock hardware',
+      'Convertible chain strap (wear as shoulder bag or crossbody)',
+      'Rear quick-access pocket for smartphone or metro card'
     ],
     colors: [
-      { name: 'Nordic White & Oak', hex: '#FFFFFF' },
-      { name: 'Sun Yellow Accent', hex: '#FDE047' },
-      { name: 'Matte Graphite', hex: '#334155' }
+      { name: 'Mustard Yellow', hex: '#EAB308' },
+      { name: 'Porcelain White', hex: '#FFFFFF' },
+      { name: 'Espresso Tan', hex: '#78350F' }
     ],
     images: [
-      'https://images.unsplash.com/photo-1507473885765-e6ed057f782c?auto=format&fit=crop&w=800&q=80',
-      'https://images.unsplash.com/photo-1513506003901-1e6a229e2d15?auto=format&fit=crop&w=800&q=80',
-      'https://images.unsplash.com/photo-1540932239986-30128078f3c5?auto=format&fit=crop&w=800&q=80'
+      'https://images.unsplash.com/photo-1548036328-c9fa89d128fa?auto=format&fit=crop&w=900&q=80',
+      'https://images.unsplash.com/photo-1566150905458-1bf1fc113f0d?auto=format&fit=crop&w=900&q=80'
     ]
   },
   {
     id: 'prod-6',
-    name: 'Nova 4K HDR Smart Portable Projector',
-    category: 'Electronics',
-    price: 18999,
-    originalPrice: 24999,
-    rating: 4.8,
-    reviewCount: 89,
+    name: 'Luxe Croc-Embossed Top-Handle Satchel',
+    category: 'Handbags',
+    price: 3599,
+    originalPrice: 4999,
+    rating: 4.9,
+    reviewCount: 310,
     inStock: true,
-    stockCount: 5,
+    stockCount: 8,
     badge: 'Trending',
-    description: 'Compact 900 ANSI Lumens cinematic cinema projector with auto-focus, keystone correction, built-in Dolby Audio stereo speakers, and Android TV streaming.',
+    description: 'Statement high-shine crocodile-embossed structured satchel. Features an architectural top handle, gold padlock charm accent, and detachable guitar-weave shoulder strap.',
+    material: 'High-Gloss Croc-Embossed Vegan Leather',
+    dimensions: '28 cm x 21 cm x 11 cm',
     features: [
-      'True 1080p native resolution with 4K decoding support',
-      'Instant 1-second auto-focus & obstacle avoidance',
-      'Dual 10W Harman-tuned bass reflex chamber speakers',
-      'Built-in battery for 2.5 hours of wire-free movie playback'
+      'Hand-polished golden padlock & key charm',
+      'Dual carrying options: rigid top handle or wide shoulder strap',
+      'Satin peach lining with dual phone and zipper pockets',
+      'Solid bottom brass base studs'
     ],
     colors: [
-      { name: 'Glacier White', hex: '#FFFFFF' },
-      { name: 'Warm Amber Trim', hex: '#F59E0B' }
+      { name: 'Honey Amber', hex: '#F59E0B' },
+      { name: 'Onyx Black', hex: '#18181B' },
+      { name: 'Snow Cream', hex: '#FEFCE8' }
     ],
     images: [
-      'https://images.unsplash.com/photo-1517694712202-14dd9538aa97?auto=format&fit=crop&w=800&q=80',
-      'https://images.unsplash.com/photo-1593305841991-05c297ba4575?auto=format&fit=crop&w=800&q=80'
+      'https://images.unsplash.com/photo-1591561954557-26941169b49e?auto=format&fit=crop&w=900&q=80',
+      'https://images.unsplash.com/photo-1584917865442-de89df76afd3?auto=format&fit=crop&w=900&q=80'
     ]
   },
   {
     id: 'prod-7',
-    name: 'Veloce Ceramic Matte Coffee Pour-Over Set',
-    category: 'Home',
-    price: 1899,
-    originalPrice: 2499,
+    name: 'Crystal Encrusted Minaudière Evening Clutch',
+    category: 'Clutches',
+    price: 2899,
+    originalPrice: 3999,
     rating: 4.9,
-    reviewCount: 220,
+    reviewCount: 195,
     inStock: true,
-    stockCount: 16,
-    description: 'Hand-crafted artisanal ceramic dripper with thermal insulated server carafe and precision stainless steel reusable filter for the richest artisanal brew.',
+    stockCount: 7,
+    badge: 'Festive Pick',
+    description: 'Jewelry-inspired hard case minaudière encrusted with multifaceted Austrian crystals set in a yellow-gold framework. A showstopper accessory for gala receptions and weddings.',
+    material: 'Austrian Crystals & 18K Gold Plated Brass Shell',
+    dimensions: '19 cm x 10 cm x 5 cm',
     features: [
-      'High-fire non-porous ceramic keeps optimal 92°C heat',
-      'Includes 600ml borosilicate glass server with level markers',
-      'Ergonomic anti-drip spout with acacia wood lid',
-      'Dishwasher safe & eco-friendly zero paper waste'
+      'Over 400 precision hand-placed crystal facets',
+      'Faceted jewel push-lock top clasp',
+      'Seamless velvet interior lining',
+      'Includes premium drop-in snake chain'
     ],
     colors: [
-      { name: 'Cream White', hex: '#FEF08A' },
-      { name: 'Sunflower Yellow', hex: '#FACC15' }
+      { name: 'Dazzling Gold', hex: '#FACC15' },
+      { name: 'Silver Crystal', hex: '#E2E8F0' }
     ],
     images: [
-      'https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?auto=format&fit=crop&w=800&q=80',
-      'https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?auto=format&fit=crop&w=800&q=80'
+      'https://images.unsplash.com/photo-1566150905458-1bf1fc113f0d?auto=format&fit=crop&w=900&q=80',
+      'https://images.unsplash.com/photo-1544816155-12df9643f363?auto=format&fit=crop&w=900&q=80'
     ]
   },
   {
     id: 'prod-8',
-    name: 'Pulse ANC Studio Over-Ear Headphones',
-    category: 'Audio',
-    price: 8999,
-    originalPrice: 12999,
+    name: 'Monogram Canvas Structured Work Tote',
+    category: 'Tote Bags',
+    price: 2799,
+    originalPrice: 3899,
     rating: 4.8,
-    reviewCount: 380,
+    reviewCount: 340,
     inStock: true,
-    stockCount: 7,
+    stockCount: 15,
     badge: 'Hot Deal',
-    description: 'High-Fidelity 40mm beryllium drivers delivering studio reference sound. Features memory foam magnetic ear cushions and a custom equalizer app.',
+    description: 'Designed for professional hustle and weekend shopping. Heavy-duty coated canvas with contrasting yellow leather handles and water-repellent nylon interior.',
+    material: 'Coated Twill Canvas with Leather Trim',
+    dimensions: '36 cm x 27 cm x 13 cm',
     features: [
-      'Custom 40mm bio-cellulose dynamic drivers',
-      'Hybrid ANC with 4 beamforming voice microphones',
-      'Up to 50 hours playtime on a single charge',
-      'USB-C rapid charge (10 mins charge gives 5 hours)'
+      'High-capacity main chamber with zipper security',
+      'Water and stain resistant protective outer coating',
+      'Interior bottle holder and key leash clip',
+      'Reinforced load-bearing cross-stitching'
     ],
     colors: [
-      { name: 'Sunbeam Gold & Ivory', hex: '#FDE047' },
-      { name: 'Pearl White', hex: '#FFFFFF' },
-      { name: 'Pitch Black', hex: '#18181B' }
+      { name: 'Warm Beige & Gold', hex: '#FEF08A' },
+      { name: 'Black & Gold Monogram', hex: '#18181B' }
     ],
     images: [
-      'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?auto=format&fit=crop&w=800&q=80',
-      'https://images.unsplash.com/photo-1484704849700-f032a568e944?auto=format&fit=crop&w=800&q=80'
+      'https://images.unsplash.com/photo-1590874103328-eac38a683ce7?auto=format&fit=crop&w=900&q=80',
+      'https://images.unsplash.com/photo-1548036328-c9fa89d128fa?auto=format&fit=crop&w=900&q=80'
     ]
   },
   {
     id: 'prod-9',
-    name: 'Urban Transit Water-Resistant Roll-top Backpack',
-    category: 'Accessories',
-    price: 3199,
-    originalPrice: 4299,
+    name: 'Honeycomb Half-Moon Leather Shoulder Bag',
+    category: 'Handbags',
+    price: 2299,
+    originalPrice: 3199,
     rating: 4.7,
-    reviewCount: 204,
+    reviewCount: 182,
     inStock: true,
-    stockCount: 15,
-    badge: 'Best Seller',
-    description: 'Weatherproof 25L modular commuter backpack with padded 16-inch laptop compartment, ergonomic ventilated air-mesh back panel, and magnetic Fidlock buckle.',
+    stockCount: 11,
+    badge: 'Trending',
+    description: 'Sleek 90s vintage half-moon curve shoulder bag. Fits neatly beneath the arm with a comfortable ergonomic strap and polished gold zip closure.',
+    material: 'Smooth Ultra-Matte Vegan Leather',
+    dimensions: '26 cm x 14 cm x 6.5 cm',
     features: [
-      'Cordura 900D water-repellent ballistic weave',
-      'Dedicated suspended sleeve fits up to 16" MacBook Pro',
-      'Secret luggage pass-through strap and RFID pocket',
-      'German Fidlock quick-release magnetic latch'
+      'Modern geometric crescent silhouette',
+      'Gold-toned metallic puller and buckle adjuster',
+      'Scratch-resistant water-wipeable finish',
+      'Spacious enough for phone, keys, sunglasses, and wallet'
     ],
     colors: [
-      { name: 'Ivory & Mustard Accent', hex: '#FEF08A' },
-      { name: 'Pure Chalk', hex: '#F1F5F9' },
-      { name: 'Charcoal Black', hex: '#1E293B' }
+      { name: 'Canary Yellow', hex: '#FACC15' },
+      { name: 'Chalk White', hex: '#FFFFFF' },
+      { name: 'Caramel Brown', hex: '#B45309' }
     ],
     images: [
-      'https://images.unsplash.com/photo-1553062407-98eeb64c6a62?auto=format&fit=crop&w=800&q=80',
-      'https://images.unsplash.com/photo-1622560480605-d83c853bc5c3?auto=format&fit=crop&w=800&q=80'
+      'https://images.unsplash.com/photo-1548036328-c9fa89d128fa?auto=format&fit=crop&w=900&q=80',
+      'https://images.unsplash.com/photo-1591561954557-26941169b49e?auto=format&fit=crop&w=900&q=80'
     ]
   },
   {
     id: 'prod-10',
-    name: 'Mechanical Tactile Wireless Keyboard 75%',
-    category: 'Electronics',
-    price: 5499,
-    originalPrice: 7299,
-    rating: 4.9,
-    reviewCount: 290,
+    name: 'Gilded Chain Mini Flap Sling Bag',
+    category: 'Sling Bags',
+    price: 1699,
+    originalPrice: 2399,
+    rating: 4.8,
+    reviewCount: 228,
     inStock: true,
-    stockCount: 12,
-    badge: 'New',
-    description: 'Hot-swappable gasket mount mechanical keyboard with custom pre-lubed yellow tactile switches, multi-function rotary media knob, and warm RGB backlighting.',
+    stockCount: 18,
+    badge: 'Bestseller',
+    description: 'Chic everyday mini flap bag with chunky golden curb chain handle and an additional long crossbody strap. Perfect for brunch dates, shopping, and evening strolls.',
+    material: 'Supple Nappa-grain Vegan Leather',
+    dimensions: '19 cm x 13 cm x 6 cm',
     features: [
-      'Gasket mounted with 5-layer acoustic dampening foam',
-      'Pre-lubed custom Milky Yellow tactile switches',
-      'Triple-mode connectivity (2.4GHz, BT 5.1, USB-C)',
-      'CNC milled solid aluminum control knob'
+      'Chunky architectural curb chain top handle',
+      'Magnetic flap snap closure for quick access',
+      'Dual interior compartments with card slots',
+      'Includes adjustable matching leather strap'
     ],
     colors: [
-      { name: 'Retro Yellow & White', hex: '#FACC15' },
-      { name: 'Minimalist Clean White', hex: '#FFFFFF' }
+      { name: 'Warm Cream White', hex: '#FEFCE8' },
+      { name: 'Golden Honey', hex: '#EAB308' },
+      { name: 'Jet Black', hex: '#18181B' }
     ],
     images: [
-      'https://images.unsplash.com/photo-1587829741301-dc798b83add3?auto=format&fit=crop&w=800&q=80',
-      'https://images.unsplash.com/photo-1618384887929-16ec33fab9ef?auto=format&fit=crop&w=800&q=80'
+      'https://images.unsplash.com/photo-1584917865442-de89df76afd3?auto=format&fit=crop&w=900&q=80',
+      'https://images.unsplash.com/photo-1566150905458-1bf1fc113f0d?auto=format&fit=crop&w=900&q=80'
     ]
   },
   {
     id: 'prod-11',
-    name: 'Suede Minimalist Low-Top Court Shoes',
-    category: 'Footwear',
-    price: 3999,
-    originalPrice: 5499,
-    rating: 4.6,
-    reviewCount: 118,
+    name: 'Imperial Velvet Zari Work Potli Clutch',
+    category: 'Clutches',
+    price: 1599,
+    originalPrice: 2199,
+    rating: 4.9,
+    reviewCount: 215,
     inStock: true,
-    stockCount: 9,
-    description: 'Classic European tennis silhouette crafted from supple water-treated suede with natural gum rubber cupsole and antimicrobial cork insole.',
+    stockCount: 14,
+    badge: 'Handcrafted',
+    description: 'Traditional Royal Indian potli clutch crafted in plush golden velvet with heavy pearl tassel latkans and drawstring closure. A quintessential match for festive occasions.',
+    material: 'Micro-Velvet with Golden Zardozi & Pearl Tassels',
+    dimensions: '22 cm x 20 cm',
     features: [
-      'Water-resistant treated premium split suede',
-      'Orthopedic shock-absorbing cork footbed',
-      'Reinforced double-stitched heel counter',
-      'Flexible vulcanized gum rubber sole'
+      'Authentic Zardozi hand-embroidery by master artisans',
+      'Heavy beaded drawstring with pearl hangings',
+      'Sturdy braided golden handle strap',
+      'Expands to accommodate phones and jewelry boxes'
     ],
-    sizes: ['UK 7', 'UK 8', 'UK 9', 'UK 10'],
     colors: [
-      { name: 'Sand Cream', hex: '#FEF9C3' },
-      { name: 'Solar Ochre', hex: '#CA8A04' }
+      { name: 'Golden Velvet', hex: '#EAB308' },
+      { name: 'Pearl Cream', hex: '#FEF9C3' },
+      { name: 'Ruby Maroon', hex: '#881337' }
     ],
     images: [
-      'https://images.unsplash.com/photo-1525966222134-fcfa99b8ae77?auto=format&fit=crop&w=800&q=80',
-      'https://images.unsplash.com/photo-1560769629-975ec94e6a86?auto=format&fit=crop&w=800&q=80'
+      'https://images.unsplash.com/photo-1566150905458-1bf1fc113f0d?auto=format&fit=crop&w=900&q=80',
+      'https://images.unsplash.com/photo-1544816155-12df9643f363?auto=format&fit=crop&w=900&q=80'
     ]
   },
   {
     id: 'prod-12',
-    name: 'Polarized Titanium Aviator Sunglasses',
-    category: 'Accessories',
-    price: 2799,
-    originalPrice: 3899,
+    name: 'Slim Bifold Leather Wallet & Card Clutch',
+    category: 'Wallets',
+    price: 1199,
+    originalPrice: 1699,
     rating: 4.7,
-    reviewCount: 174,
+    reviewCount: 198,
     inStock: true,
-    stockCount: 18,
-    description: 'Ultra-lightweight Japanese aerospace-grade titanium wireframes with Category 3 polarized amber-tinted lenses offering 100% UV400 solar protection.',
+    stockCount: 25,
+    badge: 'Hot Deal',
+    description: 'Slim bifold travel wallet with 8 card slots, zipper coin pocket, ID window, and cash sleeves. Fits easily into any handbag or carried solo as a minimalist clutch.',
+    material: 'Grain Vegan Leather with RFID Blocking Layer',
+    dimensions: '19 cm x 10 cm x 2 cm',
     features: [
-      'Japanese ultra-flex titanium weighing just 18 grams',
-      'Tri-acetate cellulose (TAC) 100% UV400 polarized lenses',
-      'Anti-reflective back coating and scratch protection',
-      'Hypoallergenic medical grade silicone nose pads'
+      'Built-in RFID blocking fabric prevents electronic theft',
+      '8 quick-access card slots + zippered coin compartment',
+      'Gold foil embossed Gopal Bags emblem',
+      'Slim profile stays light and organized'
     ],
     colors: [
-      { name: 'Polished Gold & Amber', hex: '#EAB308' },
-      { name: 'Silver Smoke', hex: '#94A3B8' }
+      { name: 'Ochre Yellow', hex: '#CA8A04' },
+      { name: 'Ivory White', hex: '#FFFFFF' },
+      { name: 'Midnight Charcoal', hex: '#18181B' }
     ],
     images: [
-      'https://images.unsplash.com/photo-1511499767150-a48a237f0083?auto=format&fit=crop&w=800&q=80',
-      'https://images.unsplash.com/photo-1572635196237-14b3f281503f?auto=format&fit=crop&w=800&q=80'
+      'https://images.unsplash.com/photo-1548036328-c9fa89d128fa?auto=format&fit=crop&w=900&q=80',
+      'https://images.unsplash.com/photo-1584917865442-de89df76afd3?auto=format&fit=crop&w=900&q=80'
     ]
   }
 ];
 
 export const CATEGORIES = [
   'All',
-  'Electronics',
-  'Audio',
-  'Fashion',
-  'Footwear',
-  'Home',
-  'Accessories'
+  'Handbags',
+  'Clutches',
+  'Tote Bags',
+  'Sling Bags',
+  'Wallets'
 ] as const;
 
 export const PROMO_CODES: Record<string, { discountPercent: number; minSpend: number; description: string }> = {
-  YELLOW20: { discountPercent: 20, minSpend: 2000, description: '20% OFF on orders above ₹2000' },
-  SOLARA10: { discountPercent: 10, minSpend: 1000, description: '10% OFF on all orders' },
-  FREESHIP: { discountPercent: 0, minSpend: 0, description: 'Free Express Shipping' }
+  GOPAL20: { discountPercent: 20, minSpend: 1500, description: '20% OFF on Gopal Bags over ₹1500' },
+  YELLOW20: { discountPercent: 20, minSpend: 1500, description: '20% OFF launch discount' },
+  FIRST10: { discountPercent: 10, minSpend: 999, description: '10% OFF on all orders' },
+  FREESHIP: { discountPercent: 0, minSpend: 0, description: 'Free Express Courier Shipping' }
 };

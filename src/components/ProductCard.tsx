@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { motion } from 'motion/react';
-import { Heart, ShoppingBag, Eye, Star } from 'lucide-react';
+import { Heart, ShoppingBag, Eye, Star, Sparkles } from 'lucide-react';
+import { Link } from 'react-router-dom';
 import { Product } from '../types';
 
 interface ProductCardProps {
@@ -18,6 +19,9 @@ export const ProductCard: React.FC<ProductCardProps> = ({
   onAddToCart,
   onQuickView
 }) => {
+  const [activeImageIndex, setActiveImageIndex] = useState(0);
+  const [isHovered, setIsHovered] = useState(false);
+
   const discountPercent = product.originalPrice
     ? Math.round(((product.originalPrice - product.price) / product.originalPrice) * 100)
     : 0;
@@ -25,101 +29,147 @@ export const ProductCard: React.FC<ProductCardProps> = ({
   return (
     <motion.div
       layout
-      initial={{ opacity: 0, y: 15 }}
+      initial={{ opacity: 0, y: 16 }}
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, scale: 0.95 }}
-      transition={{ duration: 0.25 }}
-      className="group relative bg-white rounded-2xl border border-yellow-200/80 hover:border-amber-300 shadow-sm hover:shadow-xl hover:shadow-amber-500/10 transition-all duration-300 flex flex-col overflow-hidden"
+      transition={{ duration: 0.3 }}
+      className="group relative bg-white rounded-3xl border border-yellow-100 hover:border-amber-400/80 shadow-xs hover:shadow-xl hover:shadow-amber-500/10 transition-all duration-300 flex flex-col overflow-hidden"
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => {
+        setIsHovered(false);
+        setActiveImageIndex(0);
+      }}
     >
-      {/* Product Image Container */}
-      <div className="relative aspect-square w-full bg-zinc-50 overflow-hidden">
-        <img
-          src={product.images[0]}
-          alt={product.name}
-          loading="lazy"
-          referrerPolicy="no-referrer"
-          className="w-full h-full object-cover object-center group-hover:scale-108 transition-transform duration-500 ease-out"
-        />
+      {/* Top Image Showcase Area */}
+      <div className="relative w-full aspect-[4/3.8] bg-zinc-50 overflow-hidden">
+        {/* Clickable Image to Dedicated Product Page */}
+        <Link to={`/product/${product.id}`} className="block w-full h-full relative cursor-pointer">
+          <img
+            src={product.images[activeImageIndex] || product.images[0]}
+            alt={product.name}
+            loading="lazy"
+            className="w-full h-full object-cover object-center transition-transform duration-500 ease-out group-hover:scale-105"
+          />
+        </Link>
 
-        {/* Top Badges */}
-        <div className="absolute top-3 left-3 flex flex-col gap-1.5 z-10 pointer-events-none">
+        {/* Ambient Subtle Gradient Overlay */}
+        <div className="absolute inset-0 bg-gradient-to-t from-zinc-950/20 via-transparent to-transparent pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+
+        {/* Top Badges: Category & Promotional Tag */}
+        <div className="absolute top-3 left-3 flex flex-col gap-1.5 z-10">
           {product.badge && (
-            <span className="inline-block bg-amber-400 text-zinc-950 text-[10px] font-black uppercase tracking-wider px-2.5 py-1 rounded-full shadow-sm">
-              {product.badge}
+            <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-[10px] font-extrabold uppercase tracking-wide bg-amber-400 text-zinc-950 shadow-sm">
+              <Sparkles className="w-2.5 h-2.5 fill-zinc-950" />
+              <span>{product.badge}</span>
             </span>
           )}
-          {discountPercent > 0 && !product.badge && (
-            <span className="inline-block bg-zinc-900 text-amber-300 text-[10px] font-extrabold uppercase px-2 py-0.5 rounded shadow-sm">
+
+          {discountPercent > 0 && (
+            <span className="inline-block px-2 py-0.5 rounded-md text-[10px] font-black bg-white/95 text-red-600 border border-red-200 backdrop-blur-xs shadow-xs">
               {discountPercent}% OFF
             </span>
           )}
         </div>
 
-        {/* Wishlist Button */}
-        <button
+        {/* Wishlist Heart Button */}
+        <motion.button
+          whileTap={{ scale: 0.85 }}
           onClick={(e) => {
+            e.preventDefault();
             e.stopPropagation();
             onToggleWishlist(product);
           }}
-          className={`absolute top-3 right-3 p-2 rounded-full transition-all duration-200 z-10 cursor-pointer ${
+          aria-label="Add to Wishlist"
+          className={`absolute top-3 right-3 z-10 w-9 h-9 rounded-full flex items-center justify-center transition-colors shadow-sm backdrop-blur-md cursor-pointer ${
             isWishlisted
-              ? 'bg-amber-400 text-zinc-950 shadow-md scale-110'
-              : 'bg-white/90 text-zinc-600 hover:text-amber-600 hover:bg-white shadow-sm'
+              ? 'bg-red-50 text-red-500 border border-red-200'
+              : 'bg-white/90 text-zinc-600 hover:text-red-500 hover:bg-white border border-zinc-200'
           }`}
-          aria-label={isWishlisted ? 'Remove from wishlist' : 'Add to wishlist'}
         >
-          <Heart
-            className={`w-4 h-4 transition-transform ${isWishlisted ? 'fill-zinc-950' : ''}`}
-          />
-        </button>
+          <Heart className={`w-4 h-4 ${isWishlisted ? 'fill-red-500' : ''}`} />
+        </motion.button>
 
-        {/* Hover Quick View Trigger */}
-        <div className="absolute inset-x-0 bottom-3 px-3 flex justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-200 z-10">
+        {/* Quick View Button (Reveals on Hover) */}
+        <div className="absolute bottom-3 inset-x-3 z-10 flex items-center justify-center gap-2 opacity-0 group-hover:opacity-100 transition-all duration-200 translate-y-2 group-hover:translate-y-0 pointer-events-none group-hover:pointer-events-auto">
           <button
-            onClick={() => onQuickView(product)}
-            className="w-full py-2 px-3 rounded-xl bg-white/95 backdrop-blur-md text-zinc-900 font-bold text-xs shadow-md hover:bg-amber-300 transition-colors flex items-center justify-center gap-1.5 cursor-pointer border border-zinc-200"
+            onClick={(e) => {
+              e.preventDefault();
+              e.stopPropagation();
+              onQuickView(product);
+            }}
+            className="flex-1 py-2 px-3 rounded-xl bg-white/95 hover:bg-white text-zinc-800 text-xs font-bold shadow-md border border-zinc-200/80 backdrop-blur-xs flex items-center justify-center gap-1.5 transition-all cursor-pointer"
           >
-            <Eye className="w-3.5 h-3.5" />
-            <span>Quick View</span>
+            <Eye className="w-3.5 h-3.5 text-zinc-600" />
+            <span>Quick Preview</span>
           </button>
         </div>
+
+        {/* Multiple Image Preview Dots on Card */}
+        {product.images.length > 1 && (
+          <div className="absolute bottom-2 left-1/2 -translate-x-1/2 flex items-center gap-1 z-10 group-hover:hidden">
+            {product.images.map((_, idx) => (
+              <span
+                key={idx}
+                className={`w-1.5 h-1.5 rounded-full transition-all ${
+                  idx === activeImageIndex ? 'bg-amber-500 w-3' : 'bg-white/70'
+                }`}
+              />
+            ))}
+          </div>
+        )}
       </div>
 
-      {/* Product Content Details */}
-      <div className="p-4 flex-1 flex flex-col justify-between">
+      {/* Card Content Details */}
+      <div className="p-4 sm:p-5 flex-1 flex flex-col justify-between">
         <div>
           {/* Category & Rating */}
           <div className="flex items-center justify-between text-xs mb-1.5">
-            <span className="font-semibold text-amber-600 uppercase text-[11px] tracking-wider">
+            <span className="font-semibold text-amber-600 uppercase tracking-wider text-[11px]">
               {product.category}
             </span>
-            <div className="flex items-center gap-1 bg-amber-50 px-2 py-0.5 rounded-full border border-amber-200/50">
+            <div className="flex items-center gap-1 text-zinc-600 font-bold bg-amber-50 px-1.5 py-0.5 rounded-md border border-amber-200/60">
               <Star className="w-3 h-3 fill-amber-400 text-amber-400" />
-              <span className="font-bold text-zinc-900 text-xs">{product.rating}</span>
-              <span className="text-zinc-400 text-[10px]">({product.reviewCount})</span>
+              <span>{product.rating}</span>
+              <span className="text-[10px] text-zinc-400 font-normal">({product.reviewCount})</span>
             </div>
           </div>
 
-          {/* Title */}
-          <h3
-            onClick={() => onQuickView(product)}
-            className="font-bold text-zinc-900 text-sm sm:text-base leading-snug line-clamp-1 hover:text-amber-600 transition-colors cursor-pointer"
-            title={product.name}
+          {/* Product Title with Link */}
+          <Link
+            to={`/product/${product.id}`}
+            className="block font-['Outfit',sans-serif] font-bold text-base text-zinc-900 group-hover:text-amber-600 transition-colors line-clamp-1 mb-1"
           >
             {product.name}
-          </h3>
+          </Link>
 
-          {/* Description snippet */}
-          <p className="mt-1 text-xs text-zinc-500 line-clamp-2 leading-relaxed">
-            {product.description}
+          {/* Material / Dimension Snippet */}
+          <p className="text-xs text-zinc-500 line-clamp-1 mb-3">
+            {product.material || product.description}
           </p>
+
+          {/* Available Color Swatches */}
+          {product.colors && product.colors.length > 0 && (
+            <div className="flex items-center gap-1.5 mb-3.5">
+              <span className="text-[10px] text-zinc-400 font-medium">Colors:</span>
+              <div className="flex items-center gap-1">
+                {product.colors.map((c, i) => (
+                  <span
+                    key={i}
+                    title={c.name}
+                    className="w-3.5 h-3.5 rounded-full border border-zinc-300 shadow-2xs"
+                    style={{ backgroundColor: c.hex }}
+                  />
+                ))}
+              </div>
+            </div>
+          )}
         </div>
 
-        {/* Price & Action Section */}
-        <div className="mt-4 pt-3 border-t border-zinc-100 flex items-center justify-between gap-2">
+        {/* Pricing & Add to Bag */}
+        <div className="pt-3 border-t border-yellow-100 flex items-center justify-between gap-2">
           <div>
             <div className="flex items-baseline gap-1.5">
-              <span className="text-base sm:text-lg font-extrabold text-zinc-900 font-['Outfit',sans-serif]">
+              <span className="text-lg font-black text-zinc-950 font-['Outfit',sans-serif]">
                 ₹{product.price.toLocaleString('en-IN')}
               </span>
               {product.originalPrice && (
@@ -128,21 +178,17 @@ export const ProductCard: React.FC<ProductCardProps> = ({
                 </span>
               )}
             </div>
-            {product.stockCount <= 10 && (
-              <span className="text-[10px] text-amber-700 font-bold block">
-                ⚡ Only {product.stockCount} left
-              </span>
-            )}
+            <span className="text-[10px] font-bold text-emerald-600">Free Courier Delivery</span>
           </div>
 
-          {/* Add to Cart Button */}
-          <button
+          <motion.button
+            whileTap={{ scale: 0.92 }}
             onClick={() => onAddToCart(product)}
-            className="px-3.5 py-2 rounded-xl bg-amber-400 hover:bg-amber-500 text-zinc-950 font-bold text-xs shadow-sm hover:shadow-md hover:shadow-amber-400/30 flex items-center gap-1.5 transition-all active:scale-95 cursor-pointer shrink-0"
+            className="px-3.5 py-2 rounded-xl bg-amber-400 hover:bg-amber-500 active:bg-amber-600 text-zinc-950 font-bold text-xs shadow-xs hover:shadow-md flex items-center gap-1.5 transition-all cursor-pointer shrink-0"
           >
             <ShoppingBag className="w-3.5 h-3.5" />
-            <span>Add</span>
-          </button>
+            <span>Add to Bag</span>
+          </motion.button>
         </div>
       </div>
     </motion.div>

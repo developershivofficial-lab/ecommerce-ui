@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
+import { Link } from 'react-router-dom';
 import {
   X,
   Star,
@@ -11,7 +12,8 @@ import {
   Zap,
   Check,
   Minus,
-  Plus
+  Plus,
+  ExternalLink
 } from 'lucide-react';
 import { Product } from '../types';
 
@@ -283,15 +285,24 @@ export const ProductDetailModal: React.FC<ProductDetailModalProps> = ({
                     </button>
                   </div>
 
-                  {/* Wishlist toggle link */}
-                  <div className="mt-3 flex justify-center">
+                  {/* Wishlist and Full Page Link */}
+                  <div className="mt-3 flex items-center justify-between text-xs font-semibold">
                     <button
                       onClick={() => onToggleWishlist(product)}
-                      className="text-xs font-semibold text-zinc-600 hover:text-amber-700 flex items-center gap-1.5 py-1"
+                      className="text-zinc-600 hover:text-amber-700 flex items-center gap-1.5 py-1 cursor-pointer"
                     >
                       <Heart className={`w-3.5 h-3.5 ${isWishlisted ? 'fill-amber-500 text-amber-500' : ''}`} />
-                      <span>{isWishlisted ? 'Remove from Wishlist' : 'Save to Wishlist'}</span>
+                      <span>{isWishlisted ? 'Saved in Wishlist' : 'Save to Wishlist'}</span>
                     </button>
+
+                    <Link
+                      to={`/product/${product.id}`}
+                      onClick={onClose}
+                      className="text-amber-700 hover:text-amber-900 flex items-center gap-1 py-1"
+                    >
+                      <span>View Full Product Page</span>
+                      <ExternalLink className="w-3.5 h-3.5" />
+                    </Link>
                   </div>
                 </div>
 

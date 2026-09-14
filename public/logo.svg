@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500" width="100%" height="100%">
+  <!-- Background -->
+  <rect width="500" height="500" fill="#FFFFFF"/>
+  
+  <!-- Handbag Handle -->
+  <path d="M 215 145 C 215 95, 285 95, 285 145" fill="none" stroke="#D97706" stroke-width="12" stroke-linecap="round"/>
+  
+  <!-- Handbag Top Flap / Bar -->
+  <rect x="175" y="140" width="150" height="22" rx="10" fill="#18181B"/>
+  
+  <!-- Handle Rings / Rivets -->
+  <circle cx="215" cy="148" r="7" fill="#FFFFFF" stroke="#D97706" stroke-width="4"/>
+  <circle cx="285" cy="148" r="7" fill="#FFFFFF" stroke="#D97706" stroke-width="4"/>
+  
+  <!-- Stylized G and B Monogram -->
+  <!-- 'G' in Jet Black -->
+  <path d="M 245 168 C 170 168, 140 215, 140 270 C 140 330, 180 375, 250 375 C 290 375, 320 355, 335 325 L 290 325 C 280 340, 260 348, 245 348 C 195 348, 172 310, 172 270 C 172 230, 195 195, 245 195 C 275 195, 305 210, 315 235 L 345 220 C 330 185, 290 168, 245 168 Z" fill="#18181B"/>
+  
+  <!-- 'B' in Golden Amber -->
+  <path d="M 245 175 L 320 175 C 355 175, 380 195, 380 230 C 380 255, 365 270, 345 276 C 370 285, 385 305, 385 335 C 385 372, 350 375, 315 375 L 245 375 Z" fill="#EAB308"/>
+  <path d="M 270 200 L 315 200 C 335 200, 350 210, 350 228 C 350 245, 335 255, 315 255 L 270 255 Z" fill="#FFFFFF"/>
+  <path d="M 270 280 L 318 280 C 340 280, 355 292, 355 315 C 355 338, 340 350, 318 350 L 270 350 Z" fill="#FFFFFF"/>
+
+  <!-- Brand Typography: GOPAL BAGS -->
+  <text x="88" y="425" font-family="'Plus Jakarta Sans', 'Outfit', 'Arial Black', sans-serif" font-size="44" font-weight="900" fill="#18181B" letter-spacing="2">GOPAL</text>
+  <text x="272" y="425" font-family="'Plus Jakarta Sans', 'Outfit', 'Arial Black', sans-serif" font-size="44" font-weight="900" fill="#D97706" letter-spacing="2">BAGS</text>
+  
+  <!-- Divider Line with Mini Handbag -->
+  <line x1="88" y1="445" x2="230" y2="445" stroke="#18181B" stroke-width="2"/>
+  
+  <!-- Mini Bag Icon -->
+  <path d="M 243 440 C 243 434, 257 434, 257 440" fill="none" stroke="#D97706" stroke-width="2"/>
+  <rect x="238" y="440" width="24" height="18" rx="2" fill="none" stroke="#D97706" stroke-width="2"/>
+  
+  <line x1="270" y1="445" x2="412" y2="445" stroke="#18181B" stroke-width="2"/>
+  
+  <!-- Tagline: QUALITY YOU CAN TRUST -->
+  <text x="250" y="475" text-anchor="middle" font-family="'Plus Jakarta Sans', sans-serif" font-size="14" font-weight="700" fill="#18181B" letter-spacing="6">QUALITY YOU CAN TRUST</text>
+</svg>
