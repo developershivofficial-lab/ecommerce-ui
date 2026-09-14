@@ -10,10 +10,15 @@ import {
   Sparkles,
   ShieldCheck,
   Truck,
-  RotateCcw
+  RotateCcw,
+  User,
+  LogOut,
+  MapPin
 } from 'lucide-react';
 import { CATEGORIES } from '../data/products';
 import { BrandLogo } from './BrandLogo';
+import { useAuth } from '../context/AuthContext';
+import { UserProfileModal } from './UserProfileModal';
 
 interface NavbarProps {
   cartCount: number;
@@ -33,6 +38,8 @@ export const Navbar: React.FC<NavbarProps> = ({
   activeCategory = 'All'
 }) => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [isProfileModalOpen, setIsProfileModalOpen] = useState(false);
+  const { currentUser, isAuthenticated, openAuthModal } = useAuth();
   const location = useLocation();
   const navigate = useNavigate();
 
@@ -98,7 +105,7 @@ export const Navbar: React.FC<NavbarProps> = ({
             </button>
           </div>
 
-          {/* Actions: Search, Wishlist, Cart, Mobile Menu */}
+          {/* Actions: Search, User, Wishlist, Cart, Mobile Menu */}
           <div className="flex items-center gap-1 sm:gap-2 shrink-0">
             {/* Mobile Search Button */}
             <button
@@ -108,6 +115,30 @@ export const Navbar: React.FC<NavbarProps> = ({
             >
               <Search className="w-5 h-5 text-zinc-800" />
             </button>
+
+            {/* User Account / Sign In Button */}
+            {isAuthenticated && currentUser ? (
+              <button
+                onClick={() => setIsProfileModalOpen(true)}
+                className="flex items-center gap-1.5 p-1.5 sm:px-3 sm:py-1.5 rounded-xl border border-yellow-200 bg-amber-50/80 hover:bg-amber-100 text-zinc-900 transition-all cursor-pointer shadow-2xs"
+                title="My Account & Address"
+              >
+                <div className="w-6 h-6 sm:w-7 sm:h-7 rounded-full bg-zinc-950 text-amber-400 font-black text-[11px] sm:text-xs flex items-center justify-center border border-white">
+                  {currentUser.firstName[0]?.toUpperCase()}
+                </div>
+                <span className="hidden sm:inline text-xs font-bold text-zinc-900 max-w-[80px] truncate">
+                  {currentUser.firstName}
+                </span>
+              </button>
+            ) : (
+              <button
+                onClick={() => openAuthModal('signin')}
+                className="flex items-center gap-1 px-2.5 sm:px-3 py-1.5 rounded-xl border border-yellow-200 hover:border-amber-400 hover:bg-amber-50 text-zinc-800 text-xs font-bold transition-all cursor-pointer"
+              >
+                <User className="w-4 h-4 text-amber-600" />
+                <span className="hidden sm:inline">Sign In</span>
+              </button>
+            )}
 
             {/* Wishlist Link Page */}
             <Link
@@ -195,6 +226,52 @@ export const Navbar: React.FC<NavbarProps> = ({
             exit={{ height: 0, opacity: 0 }}
             className="md:hidden border-t border-yellow-200 bg-white px-4 py-4 overflow-hidden shadow-lg"
           >
+            {/* Mobile User Authentication Banner */}
+            <div className="mb-4 p-3 rounded-2xl bg-amber-50/90 border border-yellow-200">
+              {isAuthenticated && currentUser ? (
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center gap-2.5">
+                    <div className="w-9 h-9 rounded-full bg-zinc-950 text-amber-400 font-black text-xs flex items-center justify-center border border-white">
+                      {currentUser.firstName[0]?.toUpperCase()}
+                    </div>
+                    <div>
+                      <div className="font-bold text-xs text-zinc-900 leading-tight">
+                        {currentUser.firstName} {currentUser.lastName}
+                      </div>
+                      <div className="text-[10px] text-zinc-500 truncate max-w-[150px]">
+                        {currentUser.email}
+                      </div>
+                    </div>
+                  </div>
+                  <button
+                    onClick={() => {
+                      setMobileMenuOpen(false);
+                      setIsProfileModalOpen(true);
+                    }}
+                    className="px-3 py-1.5 rounded-xl bg-amber-400 hover:bg-amber-500 text-zinc-950 font-bold text-xs shadow-xs cursor-pointer"
+                  >
+                    Profile
+                  </button>
+                </div>
+              ) : (
+                <div className="flex items-center justify-between">
+                  <div>
+                    <span className="font-bold text-xs text-zinc-900 block">Gopal Bags Member</span>
+                    <span className="text-[10px] text-zinc-500">Sign in with Brevo email verification</span>
+                  </div>
+                  <button
+                    onClick={() => {
+                      setMobileMenuOpen(false);
+                      openAuthModal('signin');
+                    }}
+                    className="px-3.5 py-1.5 rounded-xl bg-amber-400 hover:bg-amber-500 text-zinc-950 font-black text-xs shadow-xs cursor-pointer"
+                  >
+                    Sign In
+                  </button>
+                </div>
+              )}
+            </div>
+
             <div className="text-xs font-bold text-zinc-400 uppercase tracking-wider mb-2">
               Browse Collections
             </div>
@@ -244,6 +321,12 @@ export const Navbar: React.FC<NavbarProps> = ({
           </motion.div>
         )}
       </AnimatePresence>
+
+      {/* User Profile Modal */}
+      <UserProfileModal
+        isOpen={isProfileModalOpen}
+        onClose={() => setIsProfileModalOpen(false)}
+      />
     </header>
   );
 };

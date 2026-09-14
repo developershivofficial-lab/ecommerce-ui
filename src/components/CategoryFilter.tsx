@@ -2,6 +2,7 @@ import React from 'react';
 import { Filter, SlidersHorizontal, RotateCcw, Star, Check } from 'lucide-react';
 import { CATEGORIES } from '../data/products';
 import { FilterState } from '../types';
+import { SortDropdown } from './SortDropdown';
 
 interface CategoryFilterProps {
   filter: FilterState;
@@ -71,28 +72,18 @@ export const CategoryFilter: React.FC<CategoryFilterProps> = ({
 
       {/* Secondary Controls: Sort, Price Slider, Rating, In-Stock */}
       <div className="pt-3 border-t border-zinc-100 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 items-center">
-        {/* Sort Dropdown */}
+        {/* Custom Luxury Sort Dropdown */}
         <div className="flex items-center gap-2">
           <SlidersHorizontal className="w-4 h-4 text-amber-500 shrink-0" />
-          <label htmlFor="sort-select" className="text-xs font-bold text-zinc-700 shrink-0">
+          <span className="text-xs font-bold text-zinc-700 shrink-0">
             Sort by:
-          </label>
-          <select
-            id="sort-select"
-            value={filter.sortBy}
-            onChange={(e) =>
-              onChangeFilter({
-                sortBy: e.target.value as FilterState['sortBy']
-              })
-            }
-            className="w-full bg-zinc-50 border border-zinc-200 text-zinc-900 text-xs rounded-xl px-3 py-2 font-medium focus:outline-none focus:border-amber-400"
-          >
-            <option value="featured">✨ Featured & Trending</option>
-            <option value="price-asc">Price: Low to High</option>
-            <option value="price-desc">Price: High to Low</option>
-            <option value="rating">Highest Rated (★ 4.8+)</option>
-            <option value="discount">Biggest Discount %</option>
-          </select>
+          </span>
+          <div className="flex-1 min-w-0">
+            <SortDropdown
+              value={filter.sortBy}
+              onChange={(newSort) => onChangeFilter({ sortBy: newSort })}
+            />
+          </div>
         </div>
 
         {/* Price Slider */}

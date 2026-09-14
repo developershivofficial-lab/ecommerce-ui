@@ -75,3 +75,24 @@ export interface ToastMessage {
   message?: string;
   type: 'success' | 'info' | 'warning';
 }
+
+export interface UserDeliveryAddress {
+  street: string;
+  landmark?: string;
+  city: string;
+  state: string;
+  pincode: string;
+  addressType: 'Home' | 'Work' | 'Other';
+  alternatePhone?: string;
+}
+
+export interface UserProfile {
+  id: string;
+  firstName: string;
+  lastName: string;
+  email: string;
+  mobile: string;
+  isEmailVerified: boolean;
+  deliveryAddress?: UserDeliveryAddress;
+  createdAt: string;
+}

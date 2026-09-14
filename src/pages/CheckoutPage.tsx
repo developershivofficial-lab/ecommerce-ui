@@ -13,10 +13,12 @@ import {
   ArrowLeft,
   ShoppingBag,
   Sparkles,
-  Info
+  Info,
+  User
 } from 'lucide-react';
 import confetti from 'canvas-confetti';
 import { CartItem, ShippingAddress, PaymentMethod, OrderDetails } from '../types';
+import { useAuth } from '../context/AuthContext';
 
 interface CheckoutPageProps {
   cart: CartItem[];
@@ -36,20 +38,51 @@ export const CheckoutPage: React.FC<CheckoutPageProps> = ({
   onOrderSuccess
 }) => {
   const navigate = useNavigate();
+  const { currentUser, isAuthenticated, openAuthModal } = useAuth();
 
   const [step, setStep] = useState<'shipping' | 'payment' | 'processing'>('shipping');
 
   // Shipping Form State
-  const [shipping, setShipping] = useState<ShippingAddress>({
-    fullName: 'Pooja Sharma',
-    email: 'pooja.sharma@example.com',
-    phone: '9876543210',
-    street: 'Flat 402, Golden Heritage Enclave, MG Road',
-    city: 'Jaipur',
-    state: 'Rajasthan',
-    pincode: '302001',
-    deliverySpeed: 'express'
+  const [shipping, setShipping] = useState<ShippingAddress>(() => {
+    if (currentUser) {
+      return {
+        fullName: `${currentUser.firstName} ${currentUser.lastName}`.trim(),
+        email: currentUser.email,
+        phone: currentUser.mobile,
+        street: currentUser.deliveryAddress?.street || 'Flat 402, Golden Heritage Enclave, MG Road',
+        city: currentUser.deliveryAddress?.city || 'Jaipur',
+        state: currentUser.deliveryAddress?.state || 'Rajasthan',
+        pincode: currentUser.deliveryAddress?.pincode || '302001',
+        deliverySpeed: 'express'
+      };
+    }
+    return {
+      fullName: 'Pooja Sharma',
+      email: 'pooja.sharma@example.com',
+      phone: '9876543210',
+      street: 'Flat 402, Golden Heritage Enclave, MG Road',
+      city: 'Jaipur',
+      state: 'Rajasthan',
+      pincode: '302001',
+      deliverySpeed: 'express'
+    };
   });
+
+  // Sync if auth state updates
+  React.useEffect(() => {
+    if (currentUser) {
+      setShipping((prev) => ({
+        ...prev,
+        fullName: `${currentUser.firstName} ${currentUser.lastName}`.trim() || prev.fullName,
+        email: currentUser.email || prev.email,
+        phone: currentUser.mobile || prev.phone,
+        street: currentUser.deliveryAddress?.street || prev.street,
+        city: currentUser.deliveryAddress?.city || prev.city,
+        state: currentUser.deliveryAddress?.state || prev.state,
+        pincode: currentUser.deliveryAddress?.pincode || prev.pincode
+      }));
+    }
+  }, [currentUser]);
 
   // Payment Form State
   const [paymentMethod, setPaymentMethod] = useState<PaymentMethod>('upi');
@@ -203,6 +236,49 @@ export const CheckoutPage: React.FC<CheckoutPageProps> = ({
                   <Lock className="w-3.5 h-3.5" /> 256-bit Encrypted
                 </span>
               </div>
+
+              {/* Account / Verification Banner */}
+              {isAuthenticated && currentUser ? (
+                <div className="mb-5 p-3.5 rounded-2xl bg-amber-50/70 border border-yellow-200 flex items-center justify-between gap-3">
+                  <div className="flex items-center gap-2.5">
+                    <div className="w-8 h-8 rounded-full bg-zinc-950 text-amber-400 font-bold text-xs flex items-center justify-center">
+                      {currentUser.firstName[0]?.toUpperCase()}
+                    </div>
+                    <div>
+                      <div className="text-xs font-bold text-zinc-900 flex items-center gap-1.5">
+                        <span>Delivering to {currentUser.firstName} {currentUser.lastName}</span>
+                        <span className="px-1.5 py-0.2 rounded-full text-[9px] font-extrabold bg-emerald-100 text-emerald-800">
+                          Brevo Verified
+                        </span>
+                      </div>
+                      <div className="text-[11px] text-zinc-500">
+                        Saved address auto-filled from your verified profile
+                      </div>
+                    </div>
+                  </div>
+                  <button
+                    type="button"
+                    onClick={() => openAuthModal('signin')}
+                    className="text-xs font-bold text-amber-800 hover:underline shrink-0 cursor-pointer"
+                  >
+                    Switch Account
+                  </button>
+                </div>
+              ) : (
+                <div className="mb-5 p-3.5 rounded-2xl bg-amber-50/50 border border-yellow-200/80 flex items-center justify-between gap-3">
+                  <div className="text-xs">
+                    <span className="font-bold text-zinc-900 block">Have a Gopal Bags account?</span>
+                    <span className="text-[11px] text-zinc-500">Sign in to auto-fill your verified delivery address</span>
+                  </div>
+                  <button
+                    type="button"
+                    onClick={() => openAuthModal('signin')}
+                    className="px-3.5 py-1.5 rounded-xl bg-amber-400 hover:bg-amber-500 text-zinc-950 font-bold text-xs shadow-2xs shrink-0 cursor-pointer"
+                  >
+                    Sign In
+                  </button>
+                </div>
+              )}
 
               <form onSubmit={handleShippingSubmit} className="space-y-4">
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">

@@ -9,6 +9,7 @@ import { Navbar } from './components/Navbar';
 import { Footer } from './components/Footer';
 import { ToastContainer } from './components/Toast';
 import { SearchModal } from './components/SearchModal';
+import { AuthModal } from './components/AuthModal';
 
 import { HomePage } from './pages/HomePage';
 import { ProductDetailPage } from './pages/ProductDetailPage';
@@ -382,6 +383,11 @@ export default function App() {
           navigate(getProductUrl(p));
         }}
         onAddToCart={(p) => handleAddToCart(p, 1)}
+      />
+
+      {/* Sign-in / Sign-up & Brevo Email Verification Modal */}
+      <AuthModal
+        onSuccessToast={(title, msg) => addToast(title, msg, 'success')}
       />
 
       {/* Footer */}
